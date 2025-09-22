@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Maaf, Tapi Aku Sayang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #ffe4e1, #fceabb, #e0c3fc);
+      background-size: 600% 600%;
+      animation: gradientShift 15s ease infinite;
+      color: #333;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    body::after {
+      content: "";
+      background: url('assets/stickers/heart.png'), 
+                  url('assets/stickers/flower.png'), 
+                  url('assets/stickers/envelope.png');
+      background-repeat: no-repeat;
+      background-position: top left, bottom right, center;
+      background-size: 80px, 100px, 90px;
+      opacity: 0.3;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.8em;
+      font-weight: 600;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in forwards;
+      opacity: 0;
+    }
+    #typedMessage {
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      animation: fadeIn 3s ease-in forwards;
+      opacity: 0;
+    }
+    button {
+      background-color: #ff6f91;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 1em;
+      cursor: pointer;
+      margin: 5px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff4d6d;
+    }
+    .hidden {
+      display: none;
+    }
+    .secret-trigger {
+      font-size: 1.5em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 80px;
+      font-size: 0.9em;
+      color: #888;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgMusic" src="assets/music.mp3" loop></audio>
+
+  <main class="container">
+    <h1>Maaf.</h1>
+    <div id="typedMessage"></div>
+
+    <button onclick="showMessage()">Baca Pesan</button>
+    <button onclick="document.getElementById('bgMusic').play()">Putar Musik</button>
+
+    <div id="message" class="hidden">
+      <p>Aku tahu aku salah. Aku membentak, dan itu menyakitkan. Aku nggak akan ulangi lagi. Aku belajar, karena aku sayang kamu.</p>
+    </div>
+
+    <div class="secret-trigger" onclick="document.getElementById('secret').style.display='block'">💌</div>
+    <div id="secret" class="hidden">
+      <p>Kamu tahu arti simbol ini. Aku masih di sini, dan aku masih sayang.</p>
+    </div>
+
+    <p id="date"></p>
+  </main>
+
+  <footer>
+    <p>© Eka, 2025</p>
+  </footer>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').classList.remove('hidden');
+    }
+
+    const text = "Aku minta maaf. Aku tahu aku salah. Tapi aku juga tahu, aku sayang kamu.";
+    let i = 0;
+    function typeMessage() {
+      if (i < text.length) {
+        document.getElementById("typedMessage").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeMessage, 50);
+      }
+    }
+    typeMessage();
+
+    const today = new Date();
+    document.getElementById("date").innerText = "Disampaikan pada: " + today.toLocaleDateString("id-ID");
+  </script>
+</body>
+</html>
